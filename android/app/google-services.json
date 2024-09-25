@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "607334976112",
+    "project_id": "whatsapp-ede0f",
+    "storage_bucket": "whatsapp-ede0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607334976112:android:31d309d796623b6e8e42b5",
+        "android_client_info": {
+          "package_name": "com.haider.whatsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmrkOLdvMznJYJlKYFaY8ZmobdIpPT2uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
