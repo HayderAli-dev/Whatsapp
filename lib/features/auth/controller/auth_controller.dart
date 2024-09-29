@@ -13,8 +13,8 @@ final authControllerProvider = Provider((ref) {
 
 //Future provider
 final userDataAuthProvider = FutureProvider((ref) {
-  final authController = ref.watch(authControllerProvider);
-  return authController.getCurrentUserData();
+  final authRepository = ref.watch(authRepositoryProvider);
+  return authRepository.getCurrentUserData();
 });
 
 class AuthController {
@@ -22,6 +22,7 @@ class AuthController {
   final ProviderRef ref;
 
   AuthController({required this.authRepository, required this.ref});
+
   void signInWithPhoneNumber(BuildContext context, String phoneNumber) {
     authRepository.signInWithPhoneNumber(context, phoneNumber);
   }
@@ -39,8 +40,11 @@ class AuthController {
         name: name, profilePic: profilePic, context: context, ref: ref);
   }
 
-  Future<UserModel?> getCurrentUserData() async {
-    UserModel? user = await authRepository.getCurrentUserData();
-    return user;
+  Stream<UserModel> userDataByUID(String uid) {
+    return authRepository.userDataByUID(uid);
+  }
+
+  void setUserState(bool isOnline) {
+    authRepository.setUserState(isOnline);
   }
 }

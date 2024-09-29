@@ -86,7 +86,7 @@ class AuthRepository {
       String photoURL = 'https://i.imgur.com/OkmTXOh.png';
       if (profilePic != null) {
         photoURL = await ref
-            .read(CommonFirebaseStorageReposioryProvider)
+            .read(commonFirebaseStorageReposioryProvider)
             .storeFileTFirebase('profilePic/$uid', profilePic);
       }
 
@@ -106,5 +106,20 @@ class AuthRepository {
     } catch (e) {
       showSnackBar(context: context, content: e.toString() + 'save User Data');
     }
+  }
+
+  Stream<UserModel> userDataByUID(String uid) {
+    return firestore
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((event) => UserModel.fromJson(event.data()!));
+  }
+
+  void setUserState(bool isOnline) async {
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .update({'isOnline': isOnline});
   }
 }

@@ -7,7 +7,6 @@ import 'package:whatsapp/commons/widgets/loader.dart';
 import 'package:whatsapp/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp/features/landing/screens/landing_screen.dart';
 import 'package:whatsapp/firebase_options.dart';
-import 'package:whatsapp/home_screen.dart';
 import 'package:whatsapp/router.dart';
 import 'package:whatsapp/utils/responsive_layout.dart';
 import 'package:whatsapp/screens/mobile_screen_layout.dart';
@@ -35,10 +34,12 @@ class MyApp extends ConsumerWidget {
                 hintStyle: TextStyle(color: tabColor),
                 border: UnderlineInputBorder(),
                 enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: tabColor)),
+                    borderSide:
+                        BorderSide(color: tabColor, style: BorderStyle.none)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                   color: tabColor,
+                  style: BorderStyle.none
                 ))),
             focusColor: tabColor,
             appBarTheme: const AppBarTheme(color: appBarColor)),
@@ -51,7 +52,7 @@ class MyApp extends ConsumerWidget {
               return const MobileScreenLayout();
             },
             error: (error, trace) {
-              return ErrorScreen(error: error.toString()+'error aa gya');
+              return ErrorScreen(error: error.toString() + 'error aa gya');
             },
             loading: () => const Loader()));
   }

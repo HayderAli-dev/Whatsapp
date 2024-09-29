@@ -1,10 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp/Widgets/contacts_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/colors.dart';
+import 'package:whatsapp/features/auth/controller/auth_controller.dart';
+import 'package:whatsapp/features/chat/widgets/contacts_list.dart';
+import 'package:whatsapp/features/select_contacts/screens/select_contact_screen.dart';
 
-class MobileScreenLayout extends StatelessWidget {
+class MobileScreenLayout extends ConsumerStatefulWidget {
   const MobileScreenLayout({super.key});
 
+  @override
+  ConsumerState<MobileScreenLayout> createState() => _MobileScreenLayoutState();
+}
+
+class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout> with WidgetsBindingObserver{
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(authControllerProvider).setUserState(true);
+    WidgetsBinding.instance.addObserver(this);
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    switch(state){
+      case AppLifecycleState.resumed:
+        ref.read(authControllerProvider).setUserState(true);
+        break;
+      case AppLifecycleState.detached:
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+      ref.read(authControllerProvider).setUserState(false);
+      break;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -53,7 +92,9 @@ class MobileScreenLayout extends StatelessWidget {
           ),
           body: const ContactsList(),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, SelectContactScreen.routeName);
+            },
             backgroundColor: tabColor,
             child: const Icon(Icons.comment),
           ),

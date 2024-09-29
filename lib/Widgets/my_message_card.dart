@@ -16,14 +16,18 @@ class MyMessageCard extends StatelessWidget {
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 45),
         child: Card(
           elevation: 1,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20))),
           color: messageColor,
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Stack(
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 10, right: 30, top: 5, bottom: 20),
+                    left: 10, right: 60, top: 5, bottom: 20),
                 child: Text(
                   message,
                   style: const TextStyle(fontSize: 16),
