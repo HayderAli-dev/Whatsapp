@@ -19,12 +19,25 @@ class ChatController {
 
   ChatController({required this.chatRepository, required this.ref});
 
-  void sendTextMessage(BuildContext context, String text,
-      String receiverUserID) {
+  void sendTextMessage(
+      BuildContext context, String text, String receiverUserID) {
     ref.read(userDataAuthProvider).whenData((senderUserData) =>
         chatRepository.sendTextMessage(
             context: context,
             text: text,
+            receiverUserID: receiverUserID,
+            senderUserData: senderUserData!));
+  }
+
+  void sendGIFMessage(
+      BuildContext context, String gifURL, String receiverUserID) {
+    int gifUrlPartIndex = gifURL.lastIndexOf('-') + 1;
+    String gifUrlPart = gifURL.substring(gifUrlPartIndex);
+    String newGifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
+    ref.read(userDataAuthProvider).whenData((senderUserData) =>
+        chatRepository.sendGIFMessage(
+            context: context,
+            gifURL: newGifUrl,
             receiverUserID: receiverUserID,
             senderUserData: senderUserData!));
   }
@@ -40,7 +53,6 @@ class ChatController {
             ref: ref,
             messageEnum: messageEnum));
   }
-
 
   Stream<List<ChatContact>> chatContact() {
     return chatRepository.getChatContact();

@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp/colors.dart';
+import 'package:whatsapp/commons/enums/message_enum.dart';
+import 'package:whatsapp/features/chat/widgets/display_text_image_gif.dart';
 
 class MyMessageCard extends StatelessWidget {
   final String message;
   final String time;
+  final MessageEnum type;
+  final VoidCallback onSwipeLeft;
+  final String repliedText;
+  final String userName;
+  final MessageEnum repliedMessageType;
 
-  const MyMessageCard({super.key, required this.message, required this.time});
+  const MyMessageCard(
+      {super.key,
+      required this.message,
+      required this.time,
+      required this.type,
+      required this.onSwipeLeft,
+      required this.repliedText,
+      required this.userName,
+      required this.repliedMessageType});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +31,7 @@ class MyMessageCard extends StatelessWidget {
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 45),
         child: Card(
           elevation: 1,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20),
@@ -26,12 +41,12 @@ class MyMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 60, top: 5, bottom: 20),
-                child: Text(
-                  message,
-                  style: const TextStyle(fontSize: 16),
-                ),
+                padding: type == MessageEnum.text
+                    ? const EdgeInsets.only(
+                        left: 10, right: 60, top: 5, bottom: 22)
+                    : const EdgeInsets.only(
+                        left: 5, right: 5, top: 5, bottom: 30),
+                child: DisplayTextImageGif(type: type, message: message),
               ),
               Positioned(
                   bottom: 4,

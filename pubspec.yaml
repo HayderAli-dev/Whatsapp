@@ -47,7 +47,15 @@ dependencies:
   flutter_contacts: ^1.1.9+2
   uuid: ^4.5.1
   intl: ^0.19.0
-  cached_network_image: ^3.4.1
+  cached_network_image: 3.3.1
+  cached_video_player: ^2.0.4
+  emoji_picker_flutter: ^3.1.0
+  enough_giphy_flutter: ^0.4.1
+  flutter_platform_widgets: ^3.3.5
+  enough_platform_widgets: ^0.7.4
+  flutter_audio_recorder3: ^0.0.5
+  permission_handler: ^11.3.1
+  audioplayers: ^6.1.0
 
 dev_dependencies:
   flutter_test:
